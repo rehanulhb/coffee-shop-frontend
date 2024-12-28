@@ -20,23 +20,23 @@ const UpdateCoffee = () => {
         const details = form.details.value;
         const photo = form.photo.value;
     
-        const newCoffee = {name, quantity, supplier, taste, category, details, photo}
-        console.log(newCoffee)
+        const updatedCoffee = {name, quantity, supplier, taste, category, details, photo}
+        console.log(updatedCoffee)
     
-        fetch('http://localhost:5000/coffee',{
-          method:'POST',
+        fetch(`http://localhost:5000/coffee/${_id}`,{
+          method:'PUT',
           headers: {
             'content-type' : 'application/json'
           },
-          body: JSON.stringify(newCoffee)
+          body: JSON.stringify(updatedCoffee)
         })
         .then(res=> res.json())
         .then(data =>{
           console.log(data);
-          if(data.insertedId){
+          if(data.modifiedCount > 0){
             Swal.fire({
               title: 'Success!',
-              text: 'Coffee Added Successfully',
+              text: 'Coffee Updated Successfully',
               icon: 'success',
               confirmButtonText: 'Ok'
             })
@@ -61,13 +61,13 @@ const UpdateCoffee = () => {
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
-                            <input type="text" name='name' placeholder="Coffee name" className="input input-bordered" required />
+                            <input type="text" name='name' placeholder="Coffee name" defaultValue={name} className="input input-bordered" required />
                         </div>
                         <div className="form-control flex-1">
                             <label className="label">
                                 <span className="label-text">Available Quantity</span>
                             </label>
-                            <input type="text" name='quantity' placeholder="Available Quantity" className="input input-bordered" required />
+                            <input type="text" name='quantity' defaultValue={quantity} placeholder="Available Quantity" className="input input-bordered" required />
                         </div>
                     </div>
                     {/* form second row */}
@@ -76,13 +76,13 @@ const UpdateCoffee = () => {
                             <label className="label">
                                 <span className="label-text">Supplier Name</span>
                             </label>
-                            <input type="text" name='supplier' placeholder="Coffee supplier" className="input input-bordered" required />
+                            <input type="text" name='supplier' defaultValue={supplier} placeholder="Coffee supplier" className="input input-bordered" required />
                         </div>
                         <div className="form-control flex-1">
                             <label className="label">
                                 <span className="label-text">Taste</span>
                             </label>
-                            <input type="text" name='taste' placeholder="Taste name" className="input input-bordered" required />
+                            <input type="text" name='taste' defaultValue={taste} placeholder="Taste name" className="input input-bordered" required />
                         </div>
                     </div>
                     {/* form third row */}
@@ -91,13 +91,13 @@ const UpdateCoffee = () => {
                             <label className="label">
                                 <span className="label-text">Category</span>
                             </label>
-                            <input type="text" name='category' placeholder="Coffee Category" className="input input-bordered" required />
+                            <input type="text" name='category' defaultValue={category} placeholder="Coffee Category" className="input input-bordered" required />
                         </div>
                         <div className="form-control flex-1">
                             <label className="label">
                                 <span className="label-text">Details</span>
                             </label>
-                            <input type="text" name='details' placeholder="Coffee Details" className="input input-bordered" required />
+                            <input type="text" name='details' defaultValue={details}  placeholder="Coffee Details" className="input input-bordered" required />
                         </div>
                     </div>
 
@@ -106,10 +106,10 @@ const UpdateCoffee = () => {
                         <label className="label">
                             <span className="label-text">Photo URL</span>
                         </label>
-                        <input type="text" name='photo' placeholder="Photo url" className="input input-bordered" required />
+                        <input type="text" name='photo' defaultValue={photo} placeholder="Photo url" className="input input-bordered" required />
 
                     </div>
-                    <input type="submit" value="Add Coffee" className="btn btn-block" />
+                    <input type="submit" value="Update Coffee" className="btn btn-block" />
                 </form>
             </div>
         </div>
