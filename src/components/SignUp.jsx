@@ -13,7 +13,26 @@ const SignUp = () => {
         console.log(email, password);
         createUser(email, password)
         .then(result =>{
-            console.log(result.user)
+            console.log(result.user);
+
+            //New User Created
+
+            const createdAt = result.user?.metadata?.creationTime;
+            const user = {email, createdAt: createdAt};
+            fetch('http://localhost:5000/user',{
+              method: 'POST',
+              headers: {
+                'content-type': 'application/json'
+              },
+              body:JSON.stringify(user)
+            })
+            .then(res =>res.json())
+            .then(data =>{
+              if(data.insertedId){
+                console.log('User Added to the database')
+              }
+            })
+
         })
         .catch(error =>{
             console.error(error)
